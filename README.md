@@ -1,4 +1,4 @@
-This Python code is a simple script that performs two main tasks: it retrieves the IP addresses associated with a given list of websites and then scans for open ports on those IP addresses. Here's a breakdown of the code:
+You don't need sudo, Nmap, or struggling to find the IP address for any website This Python code is a simple script that performs two main tasks for you: it retrieves the IP addresses associated with a given list of websites and then scans for open ports on those IP addresses. Here's a breakdown of the code:
 
 get_ip_addresses(url) function:
 
@@ -6,7 +6,7 @@ Uses the socket.gethostbyname_ex(url) function to get a list of IP addresses ass
 Returns the list of IP addresses if successful, or an empty list if an exception (socket.gaierror) occurs.
 scan_ports(ip_address) function:
 
-Defines a list of common ports (common_ports) that the script will check for openness (21, 22, 80, and 443).
+Defines a list of common ports (common_ports) that the script will check for openness (21, 22, 80, and 443) and you can add more ports as you need.
 Iterates through the common ports and attempts to establish a connection to each port using socket.connect_ex().
 If the connection attempt is successful (result is 0), it adds the port to the list of open ports (open_ports).
 Closes the socket after each connection attempt.
