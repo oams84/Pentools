@@ -1,5 +1,4 @@
 import socket
-import concurrent.futures
 
 def get_ip_addresses(url):
     try:
@@ -10,7 +9,7 @@ def get_ip_addresses(url):
 
 def scan_ports(ip_address):
     open_ports = []
-    common_ports = [21, 22, 80, 443]  # Add more ports as needed
+    common_ports = [21, 22, 80, 443, 3389, 8080, 8443, 8888]  # Add more ports as needed
 
     for port in common_ports:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -22,18 +21,18 @@ def scan_ports(ip_address):
 
     return open_ports
 
-websites = ["example.com"]  # Add more websites as needed
+if __name__ == "__main__":
+    websites = ["example.com"]  # Add more websites as needed
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
     for website_url in websites:
         ip_addresses = get_ip_addresses(website_url)
 
         if ip_addresses:
             print(f"The IP addresses of {website_url} are: {ip_addresses}")
 
-            results = executor.map(scan_ports, ip_addresses)
+            for ip_address in ip_addresses:
+                open_ports = scan_ports(ip_address)
 
-            for ip_address, open_ports in zip(ip_addresses, results):
                 if open_ports:
                     print(f"The open ports on {ip_address} are: {open_ports}")
                 else:
