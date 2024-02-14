@@ -7,7 +7,7 @@ In this code, we have a Python script that allows us to retrieve the IP addresse
 
 ## Table of Contents
 
-- [Website IP and Ports scan](#website-ip-and-ports-scan)
+  - [Website IP and Ports scan](#website-ip-and-ports-scan)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
