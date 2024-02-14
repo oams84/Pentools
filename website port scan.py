@@ -23,7 +23,7 @@ def scan_ports(ip_address):
 
     return open_ports
 
-websites = ["bjs.com"]  # Add more websites as needed
+websites = ["example,com"]  # Add more websites as needed
 
 for website_url in websites:
     ip_addresses = get_ip_addresses(website_url)
