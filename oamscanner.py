@@ -22,7 +22,7 @@ def scan_ports(ip_address):
     return open_ports
 
 if __name__ == "__main__":
-    websites = ["example.com"]  # Add more websites as needed
+    websites = ["bjs.com"]  # Add more websites as needed
 
     for website_url in websites:
         ip_addresses = get_ip_addresses(website_url)
@@ -39,3 +39,5 @@ if __name__ == "__main__":
                     print(f"No open ports found on {ip_address}")
         else:
             print(f"Failed to retrieve the IP addresses of {website_url}")
+
+

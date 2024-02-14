@@ -1,27 +1,104 @@
-You don't need sudo, Nmap, or struggling to find the IP address for any website This Python code is a simple script that performs two main tasks for you: it retrieves the IP addresses associated with a given list of websites and then scans for open ports on those IP addresses. Here's a breakdown of the code:
+# Website IP and Ports scan
 
-get_ip_addresses(url) function:
 
-Uses the socket.gethostbyname_ex(url) function to get a list of IP addresses associated with the specified URL.
-Returns the list of IP addresses if successful, or an empty list if an exception (socket.gaierror) occurs.
-scan_ports(ip_address) function:
+In this code, we have a Python script that allows us to retrieve the IP addresses associated with a given website and scan for open ports on those IP addresses. This can be useful for network administrators or security professionals who want to assess the security of a website or network..
 
-Defines a list of common ports (common_ports) that the script will check for openness (21, 22, 80, and 443) and you can add more ports as you need.
-Iterates through the common ports and attempts to establish a connection to each port using socket.connect_ex().
-If the connection attempt is successful (result is 0), it adds the port to the list of open ports (open_ports).
-Closes the socket after each connection attempt.
-Returns the list of open ports.
-Main part of the script:
 
-Defines a list of websites (websites) to be processed. Note that there is a typo in the list; "example,com" should be "example.com."
-Iterates through each website in the list.
-Calls get_ip_addresses() to retrieve the IP addresses associated with the website.
-If IP addresses are obtained, it prints the IP addresses.
-Iterates through each IP address obtained and calls scan_ports() to check for open ports.
-Prints the open ports if any are found, or a message indicating no open ports.
-If the script fails to retrieve IP addresses for a website, it prints an error message.
-Notes:
 
-The code uses the socket module, which is a standard library in Python, to perform DNS resolution and port scanning.
-The timeout for port connection attempts is set to 1 second (sock.settimeout(1)), making the script responsive but less thorough.
-You may need to adjust the common_ports list based on your specific needs or add more websites to the websites list. Additionally, fix the typo in the example website URL.
+## Table of Contents
+
+- [Website IP and Ports scan](#website-ip-and-ports-scan)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+
+## Installation
+
+**Linux**
+
+- Copy the link  ***https://github.com/oams84/Pentools.git***
+  
+- Open terminal in Linux 
+  
+- use Git clone and past the link 
+
+
+**Windows**
+
+- Click https://github.com/oams84/Pentools.git
+- Install the zip file and extract it 
+- modify the oamscanner.py (change website name and modify ports numbers as need.)
+- start the powershell and CD to the folder 
+- run python oamscanner.py
+
+
+
+
+## Usage
+
+- cd to the folder 
+
+- run Nano oamscanner.py
+
+- change website name and modify ports numbers as need.
+
+- use the ctrl + x to save the file
+
+- use chmod + oamscanner.py to change it to exe file
+
+- use ./oamscanner.py
+
+
+```python
+import socket
+
+def get_ip_addresses(url):
+    try:
+        ip_addresses = socket.gethostbyname_ex(url)[2]
+        return ip_addresses
+    except socket.gaierror:
+        return []
+
+def scan_ports(ip_address):
+    open_ports = []
+    common_ports = [21, 22, 80, 443, 3389, 8080, 8443, 8888]  # Add more ports as needed
+
+    for port in common_ports:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(1)
+
+            result = sock.connect_ex((ip_address, port))
+            if result == 0:
+                open_ports.append(port)
+
+    return open_ports
+
+if __name__ == "__main__":
+    websites = ["bjs.com"]  # Add more websites as needed
+
+    for website_url in websites:
+        ip_addresses = get_ip_addresses(website_url)
+
+        if ip_addresses:
+            print(f"The IP addresses of {website_url} are: {ip_addresses}")
+
+            for ip_address in ip_addresses:
+                open_ports = scan_ports(ip_address)
+
+                if open_ports:
+                    print(f"The open ports on {ip_address} are: {open_ports}")
+                else:
+                    print(f"No open ports found on {ip_address}")
+        else:
+            print(f"Failed to retrieve the IP addresses of {website_url}")
+
+
+
+```
+
+
+## License
+
+MIT License
+
